@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+import { Routes } from "./routes";
 export function App() {
-  return <h1 className="text-alpha-dark-green-24">OLA</h1>;
+  return <Routes />;
 }
