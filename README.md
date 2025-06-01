@@ -53,7 +53,7 @@
 
 ---
 
-## 📺 Demo (responsividade)
+## 📺 Demo
 
 Um vídeo demonstrativo — incluindo adaptação mobile/desktop e navegação pelo dashboard — será adicionado aqui.
 
