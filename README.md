@@ -13,6 +13,7 @@
 | Biblioteca de UI     | **React**       | Composição de componentes e gerenciamento de estado                                                   |
 | CSS Framework        | **Tailwind**    | Estilização utilitária, mobile-first                                                                  |
 | Component Library    | **shadcn/ui**   | Conjunto de componentes acessíveis baseado em Radix + Tailwind                                        |
+| HTTP Client          | **Axios**       | Cliente HTTP baseado em Promises para fazer requisições a APIs                                         |
 | Servidor de Mock API | **json-server** | Gera uma API REST fake a partir de um arquivo JSON, simulando banco de dados                          |
 
 ---
@@ -50,6 +51,9 @@
 
 - **Renderização memoizada da tabela:**  
   A tabela de tarefas está envolvida por `React.memo`, de modo que ela é re-renderizada somente quando suas linhas realmente mudam. Isso evita renders desnecessários enquanto os dados são buscados do `json-server`, mantendo a interface leve mesmo com grandes volumes de dados.
+
+- **Gerenciamento de permissões de usuário:**  
+  A aplicação controla o que cada usuário deve visualizar baseado em seu tipo. Atualmente existe apenas a rota de **admin**, mas a estrutura já está preparada para suportar outros tipos de usuários (usuário comum, etc.), permitindo expansão futura.
 
 ---
 
