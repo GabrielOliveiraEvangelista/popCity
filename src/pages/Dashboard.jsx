@@ -1,5 +1,4 @@
-// src/pages/Dashboard.jsx
-import React from "react";
+
 import { TimeTrackerCard } from "@/components/TimeTrackerCard";
 import { ProductivityCard } from "@/components/ProductivityCard";
 import { CompletedTaskCard } from "../components/CompletedTaskCard";

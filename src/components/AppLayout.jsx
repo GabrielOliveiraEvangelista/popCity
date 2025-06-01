@@ -1,4 +1,3 @@
-// app/AppLayout.tsx
 "use client";
 
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -18,7 +17,7 @@ export function AppLayout() {
           grid
           grid-rows-[auto_1fr]
           grid-cols-[auto_1fr]
-          bg-bg-strong-950
+          bg-[#F5F7FA]
           
         "
       >

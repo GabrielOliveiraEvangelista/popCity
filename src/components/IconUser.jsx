@@ -1,5 +1,4 @@
-// src/components/IconUser.jsx
-import React from "react";
+
 import userSvg from "@/assets/user-circle.svg";
 
 export function IconUser({ className = "", alt = "User" }) {
