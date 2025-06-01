@@ -1,4 +1,3 @@
-
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -11,7 +10,6 @@ import {
 } from "@/components/ui/chart";
 
 export function TimeTrackerCard() {
-  // Dados de exemplo: horas fulltime por dia da semana
   const chartData = [
     { day: "Mon", fulltime: 2 },
     { day: "Tue", fulltime: 3 },
@@ -19,41 +17,29 @@ export function TimeTrackerCard() {
     { day: "Thu", fulltime: 4 },
     { day: "Fri", fulltime: 1 },
     { day: "Sat", fulltime: 2 },
-    { day: "Sun", fulltime: 0 }, // Domingo sem informação
+    { day: "Sun", fulltime: 0 },
   ];
 
-  // Configuração apenas para fulltime (coluna amarela)
   const chartConfig = {
     fulltime: {
       label: "Fulltime",
-      color: "#fbbf24", // amarelo
+      color: "#fbbf24",
     },
   };
 
-  // Função para desenhar barras customizadas
-  const renderCustomBar = (props) => {
-    const { x, y, width, height, payload, fill } = props;
-
-    // Se for "Sun" e valor zero, desenhar coluna listrada de 20px de altura
-    if (payload.day === "Sun" && payload.fulltime === 0) {
-      // Ao valor zero, 'y' estará na linha de base; ajusta para 20px acima
-      return (
-        <rect
-          x={x}
-          y={y - 20}
-          width={width}
-          height={20}
-          fill="url(#stripePattern)"
-          rx={4}
-        />
-      );
-    }
-
-    // Caso normal, desenha a barra cheia em amarelo
-    return (
+  const renderCustomBar = ({ x, y, width, height, payload, fill }) =>
+    payload.day === "Sun" && payload.fulltime === 0 ? (
+      <rect
+        x={x}
+        y={y - 20}
+        width={width}
+        height={20}
+        fill="url(#stripePattern)"
+        rx={4}
+      />
+    ) : (
       <rect x={x} y={y} width={width} height={height} fill={fill} rx={4} />
     );
-  };
 
   return (
     <Card className="w-full h-fit">
@@ -84,12 +70,10 @@ export function TimeTrackerCard() {
 
           <TabsContent value="summary">
             <div className="h-70 flex pt-7">
-              {/* Área de gráfico */}
-              <div className="flex-1">
+              <div className="flex-1 min-w-0 overflow-hidden">
                 <ChartContainer config={chartConfig} className="h-full w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={chartData} margin={{ left: 12, right: 12 }}>
-                      {/* Definição do padrão listrado */}
                       <defs>
                         <pattern
                           id="stripePattern"
@@ -107,11 +91,9 @@ export function TimeTrackerCard() {
                         tickLine={false}
                         axisLine={false}
                         tickMargin={8}
-                        style={{ fontSize: 12, fill: "#6B7280" }} // text-gray-500
+                        style={{ fontSize: 12, fill: "#6B7280" }}
                       />
                       <ChartTooltip content={<ChartTooltipContent />} />
-
-                      {/* Barra customizada: usa renderCustomBar */}
                       <Bar
                         dataKey="fulltime"
                         fill="var(--color-fulltime)"
@@ -123,7 +105,6 @@ export function TimeTrackerCard() {
                 </ChartContainer>
               </div>
 
-              {/* Coluna lateral de horas */}
               <div className="w-12 flex flex-col justify-between items-center pr-2">
                 <span className="text-xs text-text-soft-400">10h</span>
                 <span className="text-xs text-text-soft-400">8h</span>
@@ -147,9 +128,7 @@ export function TimeTrackerCard() {
           </TabsContent>
         </Tabs>
 
-        {/* Seção inferior (ajustada conforme o modelo desejado) */}
         <div className="flex items-center justify-between pt-15">
-          {/* Lado esquerdo: “Total hours” e valor em duas linhas */}
           <div className="flex flex-col">
             <span className="text-sm text-text-soft-400 font-medium">
               Total hours
@@ -164,9 +143,8 @@ export function TimeTrackerCard() {
             </div>
           </div>
 
-          {/* Lado direito: legenda Fulltime e Parttime */}
-          <div className="flex flex-col space-y-1 ">
-            <div className="flex items-center ">
+          <div className="flex flex-col space-y-1">
+            <div className="flex items-center">
               <span className="block w-3 h-3 rounded-full bg-yellow-400" />
               <span className="ml-2 mr-12 text-sm text-gray-600">Fulltime</span>
               <div className="flex-1" />
