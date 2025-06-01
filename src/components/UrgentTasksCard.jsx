@@ -1,33 +1,65 @@
-
+// src/components/UrgentTasksCard.jsx
+import React, { useState, useMemo, useCallback } from "react";
 import {
   Table,
   TableHeader,
   TableBody,
   TableRow,
   TableHead,
-  TableCell,
 } from "@/components/ui/table";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { GripVertical, ChevronRight } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
+import { ChevronRight } from "lucide-react";
 import { useUrgentTasks } from "../hooks/useUrgentTasks";
+import TaskRow from "./TaskRow"; // import do componente memoizado
 
 export function UrgentTasksCard() {
-  const { data: tasks, isLoading, isError } = useUrgentTasks();
+  const { data: tasks = [], isLoading, isError } = useUrgentTasks();
 
-  const getPriorityStyles = (priority) => {
-    if (priority === "High") return "bg-alpha-red-10 text-red-300";
-    if (priority === "Medium") return "bg-alpha-yellow-10 text-yellow-400";
-    return "bg-gray-100 text-gray-600";
-  };
+  // 1) estado para ordenação
+  //    chave: "priority" | "type" | "title" | etc.
+  //    dir: "asc" | "desc"
+  const [sortKey, setSortKey] = useState("priority");
+  const [sortDir, setSortDir] = useState("asc");
 
-  const getTypeStyles = (type) => {
-    if (type === "Wireframe") return "bg-alpha-sky-10 text-sky-500";
-    if (type === "Graphics") return "bg-alpha-orange-10 text-orange-400";
-    return "bg-gray-100 text-gray-600";
-  };
+  // 2) memoiza array ordenado; só recalcula quando tasks, sortKey ou sortDir mudarem
+  const sortedTasks = useMemo(() => {
+    if (!tasks || tasks.length === 0) return [];
+
+    // Faz uma cópia para não mutar o original
+    const copy = [...tasks];
+    copy.sort((a, b) => {
+      const aVal = a[sortKey] ?? "";
+      const bVal = b[sortKey] ?? "";
+
+      // Comparação simples: string ou número
+      if (typeof aVal === "string" && typeof bVal === "string") {
+        return sortDir === "asc"
+          ? aVal.localeCompare(bVal)
+          : bVal.localeCompare(aVal);
+      }
+      if (typeof aVal === "number" && typeof bVal === "number") {
+        return sortDir === "asc" ? aVal - bVal : bVal - aVal;
+      }
+      return 0;
+    });
+    return copy;
+  }, [tasks, sortKey, sortDir]);
+
+  // 3) handler de clique no header para trocar sortKey e invertar direção
+  const handleSort = useCallback(
+    (key) => {
+      if (sortKey === key) {
+        // mesma coluna: inverte direção
+        setSortDir((prev) => (prev === "asc" ? "desc" : "asc"));
+      } else {
+        // muda para nova coluna, direção padrão "asc"
+        setSortKey(key);
+        setSortDir("asc");
+      }
+    },
+    [sortKey]
+  );
 
   return (
     <Card className="w-full h-fit p-4">
@@ -49,7 +81,6 @@ export function UrgentTasksCard() {
             Carregando tarefas...
           </div>
         )}
-
         {isError && (
           <div className="p-4 text-center text-red-500">
             Erro ao carregar tarefas.
@@ -57,101 +88,46 @@ export function UrgentTasksCard() {
         )}
 
         {!isLoading && !isError && (
-          <Table className="w-full table-fixed ">
+          <Table className="w-full table-fixed">
             <TableHeader>
               <TableRow>
-                <TableHead className="w-2/6 bg-gray-100 rounded-l-full py-2 px-4 text-left text-sm text-text-strong-950 font-normal">
-                  Task
+                <TableHead
+                  className="w-2/6 bg-gray-100 rounded-l-full py-2 px-4 text-left text-sm text-text-strong-950 font-normal cursor-pointer"
+                  onClick={() => handleSort("title")}
+                >
+                  Task{" "}
+                  {sortKey === "title" ? (sortDir === "asc" ? "↑" : "↓") : ""}
                 </TableHead>
                 <TableHead className="w-1/6 bg-gray-100 py-2 px-4 text-left text-sm text-text-strong-950 font-normal">
                   Assignee
                 </TableHead>
-                <TableHead className="w-1/6 bg-gray-100 py-2 px-4 text-left text-sm text-text-strong-950 font-normal">
-                  Priority
+                <TableHead
+                  className="w-1/6 bg-gray-100 py-2 px-4 text-left text-sm text-text-strong-950 font-normal cursor-pointer"
+                  onClick={() => handleSort("priority")}
+                >
+                  Priority{" "}
+                  {sortKey === "priority"
+                    ? sortDir === "asc"
+                      ? "↑"
+                      : "↓"
+                    : ""}
                 </TableHead>
-                <TableHead className="w-1/6 bg-gray-100 py-2 px-4 text-left text-sm text-text-strong-950 font-normal">
-                  Type
+                <TableHead
+                  className="w-1/6 bg-gray-100 py-2 px-4 text-left text-sm text-text-strong-950 font-normal cursor-pointer"
+                  onClick={() => handleSort("type")}
+                >
+                  Type{" "}
+                  {sortKey === "type" ? (sortDir === "asc" ? "↑" : "↓") : ""}
                 </TableHead>
                 <TableHead className="w-1/6 bg-gray-100 rounded-r-full py-2 px-4 text-left text-sm text-text-strong-950 font-normal">
                   Progress
                 </TableHead>
               </TableRow>
             </TableHeader>
+
             <TableBody>
-              {tasks.map((task) => (
-                <TableRow key={task.id} className="hover:bg-gray-50">
-                  {/* 1. Coluna de título da tarefa */}
-                  <TableCell className="flex items-center space-x-2 py-3 px-4">
-                    <GripVertical
-                      size={16}
-                      className="text-gray-400 flex-shrink-0"
-                    />
-                    <span className="text-sm font-medium text-gray-900">
-                      {task.title}
-                    </span>
-                  </TableCell>
-
-                  {/* 2. Coluna de assignees (expect que o JSON tenha um array de assignees) */}
-                  <TableCell className="py-3 px-4">
-                    <div className="flex -space-x-3">
-                      {task.assignees.map((user, idx) => (
-                        <Avatar
-                          key={idx}
-                          className="h-6 w-6 border-2 border-white flex-shrink-0"
-                        >
-                          {user.avatarUrl ? (
-                            <AvatarImage src={user.avatarUrl} alt={user.name} />
-                          ) : (
-                            <AvatarFallback className="text-xs font-medium">
-                              {user.name
-                                .split(" ")
-                                .map((w) => w[0])
-                                .join("")
-                                .toUpperCase()}
-                            </AvatarFallback>
-                          )}
-                        </Avatar>
-                      ))}
-                    </div>
-                  </TableCell>
-
-                  {/* 3. Coluna de prioridade */}
-                  <TableCell className="py-3 px-4">
-                    <span
-                      className={`
-                        inline-block px-2 py-1 rounded-full text-xs font-medium 
-                        ${getPriorityStyles(task.priority)}
-                      `}
-                    >
-                      {task.priority}
-                    </span>
-                  </TableCell>
-
-                  {/* 4. Coluna de type */}
-                  <TableCell className="py-3 px-4">
-                    <span
-                      className={`
-                        inline-block px-2 py-1 rounded-full text-xs font-medium 
-                        ${getTypeStyles(task.type)}
-                      `}
-                    >
-                      {task.type}
-                    </span>
-                  </TableCell>
-
-                  {/* 5. Coluna de progresso */}
-                  <TableCell className="py-3 px-4">
-                    <div className="flex items-center space-x-2">
-                      <Progress
-                        className="h-2 flex-1 bg-gray-100"
-                        value={task.progress}
-                      />
-                      <span className="text-xs text-[#7A8089] font-normal">
-                        {task.progress}%
-                      </span>
-                    </div>
-                  </TableCell>
-                </TableRow>
+              {sortedTasks.map((task) => (
+                <TaskRow key={task.id} task={task} />
               ))}
             </TableBody>
           </Table>
