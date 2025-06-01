@@ -28,14 +28,15 @@
    cd popCity
    ```
 
-2. **Instale as dependências**
+2. **Instale as dependências do FrontEnd**
    ```bash
-   npm install
+   npm install --legacy-peer-deps
    ```
 
 3. **Inicie o back-end (API fake)**
    ```bash
    cd back-end
+   npm install
    npm run json-server   # Servidor em http://localhost:3000
    ```
 
