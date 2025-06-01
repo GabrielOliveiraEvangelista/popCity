@@ -20,7 +20,7 @@
 
 ## 🚀 Como rodar localmente
 
-> Requer **Node.js ≥ 18** instalado.
+> Requer **Node.js ≥ 22.15.0** instalado.
 
 1. **Clone o repositório**
    ```bash
