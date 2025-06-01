@@ -18,7 +18,7 @@ export function AppLayout() {
           grid
           grid-rows-[auto_1fr]
           grid-cols-[auto_1fr]
-          bg-alpha-blue-10
+          bg-bg-strong-950
           
         "
       >
@@ -34,7 +34,7 @@ export function AppLayout() {
         </header>
 
         {/* Conteúdo */}
-        <main className="row-start-2 col-start-2 overflow-y-auto p-6">
+        <main className="row-start-2 col-start-2 overflow-y-auto pt-5 pb-5 pl-6 pr-6">
           <Outlet />
         </main>
       </div>

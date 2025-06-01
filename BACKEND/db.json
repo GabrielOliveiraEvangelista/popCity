@@ -1,0 +1,52 @@
+{
+  "urgentTasks": [
+    {
+      "id": 1,
+      "title": "Create Wireframe",
+      "assignees": [
+        {
+          "name": "Alice Johnson",
+          "avatarUrl": "https://randomuser.me/api/portraits/women/79.jpg"
+        },
+        { "name": "Bob Smith", "avatarUrl": "https://randomuser.me/api/portraits/men/31.jpg" },
+        { "name": "Carol Lee", "avatarUrl": "" }
+      ],
+      "priority": "High",
+      "type": "Wireframe",
+      "progress": 0
+    },
+    {
+      "id": 2,
+      "title": "Create Hero Illustration",
+      "assignees": [
+        { "name": "Alice Johnson", "avatarUrl": "" },
+        { "name": "Bob Smith", "avatarUrl": "https://randomuser.me/api/portraits/women/67.jpg" }
+      ],
+      "priority": "Medium",
+      "type": "Graphics",
+      "progress": 0
+    },
+    {
+      "id": 3,
+      "title": "Design Landing Page",
+      "assignees": [
+        { "name": "Alice Johnson", "avatarUrl": "https://randomuser.me/api/portraits/women/67.jpg" },
+        { "name": "Carol Lee", "avatarUrl": "https://randomuser.me/api/portraits/women/79.jpg" }
+      ],
+      "priority": "High",
+      "type": "Wireframe",
+      "progress": 40
+    },
+    {
+      "id": 4,
+      "title": "Create Hero Illustration",
+      "assignees": [
+        { "name": "Bob Smith", "avatarUrl": "" },
+        { "name": "Carol Lee", "avatarUrl": "" }
+      ],
+      "priority": "Medium",
+      "type": "Graphics",
+      "progress": 70
+    }
+  ]
+}
