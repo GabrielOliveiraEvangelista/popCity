@@ -1,3 +1,8 @@
+<p align="center">
+<a href="https://www.linkedin.com/in/gabrieloliveiradev/" target="_blank"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-@gabrieloliveiradev-blue?style=flat&logo=linkedin"></a>
+<a href="mailto:gabrieloliveiraevangelista.dev@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-gabrieloliveiraevangelista.dev@gmail.com-blue?style=flat&logo=gmail"></a>
+</p>
+
 # PopCity
 
 > **PopCity** é um dashboard frontend criado para um teste técnico.  
@@ -56,10 +61,7 @@
 - **Gerenciamento de permissões de usuário:**  
   A aplicação controla o que cada usuário deve visualizar baseado em seu tipo. Atualmente existe apenas a rota de **admin**, mas a estrutura já está preparada para suportar outros tipos de usuários (usuário comum, etc.), permitindo expansão futura.
 
----
-
-## 📺 Demo
-
-Um vídeo demonstrativo — incluindo adaptação mobile/desktop e navegação pelo dashboard — será adicionado aqui.
-
-<!-- Substitua o link abaixo após publicar o vídeo -->
+<p align="center">
+<a href="https://www.linkedin.com/in/gabrieloliveiradev/" target="_blank"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-@gabrieloliveiradev-blue?style=flat&logo=linkedin"></a>
+<a href="mailto:gabrieloliveiraevangelista.dev@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-gabrieloliveiraevangelista.dev@gmail.com-blue?style=flat&logo=gmail"></a>
+</p>
