@@ -4,7 +4,8 @@
 </p>
 
 # PopCity
-
+![Dashboard](https://github.com/user-attachments/assets/99fb2fef-138a-4ed9-9ab0-aeecbf599049)
+ 
 > **PopCity** é um dashboard frontend criado para um teste técnico.  
 > O objetivo é reproduzir fielmente um layout Figma contendo **diferentes tipos de gráficos, painéis de atividades e uma tabela**, demonstrando domínio de React e boas práticas de UI.
 
